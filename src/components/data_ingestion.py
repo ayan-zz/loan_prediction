@@ -20,7 +20,7 @@ class data_ingestion:
         try:
             logging.info('data initiation started')
             data=pd.read_csv('C:\\Users\\Lenovo\\Downloads\\ML project\\loan_prediction\\notebook\\LoanApprovalPrediction.csv')
-            data=data.drop(columns='Loan_ID',axis=1)
+            
             logging.info('data ingested done')
 
             logging.info('making directories for storing raw data')

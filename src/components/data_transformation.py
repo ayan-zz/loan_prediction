@@ -1,7 +1,7 @@
 import sys,os
 import pandas as pd
 import numpy as np
-from sklearn.preprocessing import StandardScaler,OneHotEncoder
+from sklearn.preprocessing import StandardScaler,OneHotEncoder,LabelEncoder
 from sklearn.pipeline import Pipeline
 from sklearn.compose import ColumnTransformer
 from sklearn.impute import SimpleImputer
@@ -40,15 +40,18 @@ class data_transformation:
             logging.info('initializing data transformation')
             df_train=pd.read_csv(train_path)
             df_test=pd.read_csv(test_path)
+            le=LabelEncoder()
             target_col=['Loan_Status']
+            df_train['Loan_Status']=le.fit_transform(df_train['Loan_Status'])
+            df_test['Loan_Status']=le.transform(df_test['Loan_Status'])
             target_feature_train_df=df_train[target_col]
             target_feature_test_df=df_test[target_col]
 
             logging.info('initializing preprocessor object')
             preprocessor_obj=self.get_transformation_obj()
 
-            input_feature_train_df=df_train.drop(columns=['Loan_Status'])
-            input_feature_test_df=df_test.drop(columns=['Loan_Status'])
+            input_feature_train_df=df_train.drop(columns=['Loan_ID','Loan_Status'])
+            input_feature_test_df=df_test.drop(columns=['Loan_ID','Loan_Status'])
            
             logging.info('Appliying preprocessor object on train and test file')
             input_feature_train_arr=preprocessor_obj.fit_transform(input_feature_train_df)

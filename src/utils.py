@@ -2,9 +2,8 @@ import pandas as pd
 import numpy as np
 import os,sys
 import dill
-import warnings
-warnings.filterwarnings('ignore')
 from sklearn.model_selection import GridSearchCV
+from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import accuracy_score,f1_score
 from src.logging import logging
 from src.exception import CustomException
@@ -24,6 +23,7 @@ def save_object(file_path,obj):
 def evaluate_models(X_train,X_test,y_train,y_test,models,params):
     try:
         report={}
+        
         for i in range(len(list(models))):
             model=list(models.values())[i]
             param=params[list(models.keys())[i]]

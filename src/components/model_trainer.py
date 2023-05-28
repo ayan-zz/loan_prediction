@@ -12,7 +12,7 @@ from dataclasses import dataclass
 @dataclass
 class ModelTrainerConfig:
     logging.info('initiliazing model trainer path and pikel file')
-    trainer_obj_path=os.path.join('artifacts','model.pkl')
+    model_path=os.path.join('artifacts','model.pkl')
 class model_trainer:
     def __init__(self):
         self.model_trainer_obj=ModelTrainerConfig()
@@ -38,7 +38,7 @@ class model_trainer:
             best_model=models[best_model_name]
             
             save_object(
-                file_path=self.model_trainer_obj.trainer_obj_path,
+                file_path=self.model_trainer_obj.model_path,
                 obj=best_model)
             
             predicted=best_model.predict(X_test)
